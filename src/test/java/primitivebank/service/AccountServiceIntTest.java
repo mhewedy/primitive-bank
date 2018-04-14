@@ -97,9 +97,9 @@ public class AccountServiceIntTest {
         OperationLog operationLog =
                 getObject(entityManager, "select o from OperationLog o where o.account.id = ?", fromDb.getId());
 
-        OperationLog expected = OperationLog.ofFailedDeposit(fromDb.getId(), 100.0);
+        OperationLog expected = OperationLog.ofFailedDeposit(fromDb.getId(), 100.0, "deposit.failed");
         assertThat(dbBalance).isEqualTo(0.0);
-        assertThat(operationLog).isEqualToComparingOnlyGivenFields(expected, "type", "amount", "success");
+        assertThat(operationLog).isEqualToComparingOnlyGivenFields(expected, "type", "amount", "success", "message");
     }
 
     @Test
@@ -157,9 +157,9 @@ public class AccountServiceIntTest {
         OperationLog operationLog =
                 getObject(entityManager, "select o from OperationLog o where o.account.id = ?", fromDb.getId());
 
-        OperationLog expected = OperationLog.ofFailedWithdraw(fromDb.getId(), 100.0);
+        OperationLog expected = OperationLog.ofFailedWithdraw(fromDb.getId(), 100.0, "no.enough.balance");
         assertThat(dbBalance).isEqualTo(0.0);
-        assertThat(operationLog).isEqualToComparingOnlyGivenFields(expected, "type", "amount", "success");
+        assertThat(operationLog).isEqualToComparingOnlyGivenFields(expected, "type", "amount", "success", "message");
     }
 
     @Test

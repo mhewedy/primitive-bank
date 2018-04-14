@@ -23,6 +23,8 @@ public class OperationLog extends BaseEntity {
 
     private Boolean success;
 
+    private String message;
+
     public enum Type {
         DEPOSIT, WITHDRAW
     }
@@ -40,10 +42,11 @@ public class OperationLog extends BaseEntity {
         return operationLog;
     }
 
-    public static OperationLog ofFailedDeposit(Long accountId, Double amount) {
+    public static OperationLog ofFailedDeposit(Long accountId, Double amount, String message) {
         OperationLog operationLog = of(accountId, amount);
         operationLog.setType(Type.DEPOSIT);
         operationLog.setSuccess(false);
+        operationLog.setMessage(message);
         return operationLog;
     }
 
@@ -54,10 +57,11 @@ public class OperationLog extends BaseEntity {
         return operationLog;
     }
 
-    public static OperationLog ofFailedWithdraw(Long accountId, Double amount) {
+    public static OperationLog ofFailedWithdraw(Long accountId, Double amount, String message) {
         OperationLog operationLog = of(accountId, amount);
         operationLog.setType(Type.WITHDRAW);
         operationLog.setSuccess(false);
+        operationLog.setMessage(message);
         return operationLog;
     }
 

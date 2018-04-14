@@ -33,7 +33,7 @@ public class AccountService {
         if (success) {
             operationLogRepository.save(OperationLog.ofSucceededDeposit(accountId, amount));
         } else {
-            operationLogRepository.save(OperationLog.ofFailedDeposit(accountId, amount));
+            operationLogRepository.save(OperationLog.ofFailedDeposit(accountId, amount, "deposit.failed"));
             throw new DepositFailedException();
         }
     }
@@ -49,7 +49,7 @@ public class AccountService {
         if (success) {
             operationLogRepository.save(OperationLog.ofSucceededWithdraw(accountId, amount));
         } else {
-            operationLogRepository.save(OperationLog.ofFailedWithdraw(accountId, amount));
+            operationLogRepository.save(OperationLog.ofFailedWithdraw(accountId, amount, "no.enough.balance"));
             throw new NoEnoughBalanceException();
         }
     }
