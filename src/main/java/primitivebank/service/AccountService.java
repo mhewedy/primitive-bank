@@ -68,7 +68,8 @@ public class AccountService {
 
         log.debug("validating account: {}", accountId);
 
-        if (!accountRepository.existsById(accountId)) {
+        if (accountId == null ||
+                !accountRepository.existsById(accountId)) {
             throw new AccountNotFoundException();
         }
     }

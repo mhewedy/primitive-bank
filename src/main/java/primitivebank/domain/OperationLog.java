@@ -34,7 +34,6 @@ public class OperationLog extends BaseEntity {
     }
 
     public static OperationLog ofSucceededDeposit(Long accountId, Double amount) {
-
         OperationLog operationLog = of(accountId, amount);
         operationLog.setType(Type.DEPOSIT);
         operationLog.setSuccess(true);
@@ -42,7 +41,6 @@ public class OperationLog extends BaseEntity {
     }
 
     public static OperationLog ofFailedDeposit(Long accountId, Double amount) {
-
         OperationLog operationLog = of(accountId, amount);
         operationLog.setType(Type.DEPOSIT);
         operationLog.setSuccess(false);
@@ -50,7 +48,6 @@ public class OperationLog extends BaseEntity {
     }
 
     public static OperationLog ofSucceededWithdraw(Long accountId, Double amount) {
-
         OperationLog operationLog = of(accountId, amount);
         operationLog.setType(Type.WITHDRAW);
         operationLog.setSuccess(true);
@@ -58,12 +55,13 @@ public class OperationLog extends BaseEntity {
     }
 
     public static OperationLog ofFailedWithdraw(Long accountId, Double amount) {
-
         OperationLog operationLog = of(accountId, amount);
         operationLog.setType(Type.WITHDRAW);
         operationLog.setSuccess(false);
         return operationLog;
     }
+
+    // --- private
 
     private static OperationLog of(Long accountId, Double amount) {
         OperationLog operationLog = new OperationLog();

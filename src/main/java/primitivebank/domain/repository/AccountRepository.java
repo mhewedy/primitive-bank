@@ -35,6 +35,6 @@ public interface AccountRepository extends JpaRepository<Account, Long> {
     @Transactional
     @Query("update Account a " +
             "set a.balance = (a.balance - :amount) " +
-            "where a.id = :accountId and a.balance is not null and a.balance > :amount")
+            "where a.id = :accountId and a.balance >= :amount")
     int _withdraw(@Param("accountId") Long accountId, @Param("amount") double amount);
 }

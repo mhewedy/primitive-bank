@@ -4,10 +4,9 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.context.junit4.SpringRunner;
 import primitivebank.domain.Account;
-
-import javax.persistence.EntityManager;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -19,7 +18,7 @@ public class AccountRepositoryTest {
     private AccountRepository accountRepository;
 
     @Autowired
-    private EntityManager entityManager;
+    private TestEntityManager entityManager;
 
     @Test
     public void testCheckBalanceReturnNullForInvalidAccounts() {
