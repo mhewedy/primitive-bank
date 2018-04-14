@@ -43,9 +43,7 @@ export class AppComponent implements OnInit{
   }
 
   accountIdChange(){
-    if (!this.accountId){
-      this.messageService.set('client.enter.valid.accountId')
-    }else{
+    if (this.accountId){
       this.checkBalance()
     }
   }
