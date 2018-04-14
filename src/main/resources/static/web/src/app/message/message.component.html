@@ -1,3 +1,3 @@
 <div *ngIf="messageService.message">
-  <div> {{messageService.message}} <button class="clear" (click)="messageService.clear()">x</button></div>
+  <div> {{messageService.message | translate}} <button class="clear" (click)="messageService.clear()">x</button></div>
 </div>

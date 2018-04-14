@@ -13,6 +13,7 @@ export class AppComponent implements OnInit{
   accountId: number = 1;
   amount: number;
   balance: number;
+  checkBalanceSucceed: boolean;
 
   constructor(private accountService: AccountService, private messageService: MessageService){
   }
@@ -27,7 +28,7 @@ export class AppComponent implements OnInit{
           this.checkBalance()
         }, e => {
           console.log(e.error.key)
-          this.messageService.set(e.error.key)
+          this.messageService.set('server.' + e.error.key)
         })
   }
 
@@ -37,23 +38,31 @@ export class AppComponent implements OnInit{
           this.checkBalance()
         }, e => {
           console.log(e.error.key)
-          this.messageService.set(e.error.key)
+          this.messageService.set('server.' + e.error.key)
         })
   }
 
   accountIdChange(){
-    this.checkBalance()
+    if (!this.accountId){
+      this.messageService.set('client.enter.valid.accountId')
+    }else{
+      this.checkBalance()
+    }
   }
 
   private checkBalance() {
+    this.messageService.clear();
+
     this.accountService.checkBalance(this.accountId)
     .subscribe(resp => {
-          this.balance = resp.amount
           console.log(resp)
+          this.balance = resp.amount
+          this.checkBalanceSucceed = true
         }, e => {
           console.log(e.error.key)
           this.balance = null
-          this.messageService.set(e.error.key)
+          this.checkBalanceSucceed = false
+          this.messageService.set('server.' + e.error.key)
         })
   }
 }

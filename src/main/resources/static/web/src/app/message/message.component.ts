@@ -1,5 +1,6 @@
 import { MessageService } from './../shared/message/message.service';
 import { Component, OnInit } from '@angular/core';
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-message',
@@ -8,7 +9,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MessageComponent implements OnInit {
 
-  constructor(public messageService: MessageService) { }
+  constructor(public messageService: MessageService, translate: TranslateService) { 
+    translate.setDefaultLang('en');
+    translate.use('en');
+  }
 
   ngOnInit() {
   }

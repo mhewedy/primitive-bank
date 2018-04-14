@@ -1,24 +1,27 @@
 <div color="primary">
   <h1>
-    Welcome to {{ title }}!
+    {{"label.title" | translate}} {{ title }}!
   </h1>
 </div>
 
 <app-message></app-message>
 
 <div>
-  <h3>
-  Operating on Account Id: <input type="text" placeholder="Account Id" [(ngModel)]="accountId"
-  (input)="accountIdChange()" required name="accountId" />
-  </h3>
-</div>
+    <h3>
+      {{"label.accountId" | translate}}
+        <input type="number"  [(ngModel)]="accountId" (input)="accountIdChange()" name="accountId" />
+    </h3>
+  </div>
 
-<div>
-    <input type="text" placeholder="Enter Amount" [(ngModel)]="amount" required name="amount" />
-    <button (click)="deposit()">Deposit</button>
-    <button (click)="withdraw()">Withdraw</button>
-</div>
+<div id="details" *ngIf="accountId && checkBalanceSucceed" >
 
-<div>
-  Current balance: <span>{{balance}}</span>
+  <div>
+    <input type="number" placeholder="{{'label.enter.amount' | translate}}" [(ngModel)]="amount" name="amount" />
+    <button (click)="deposit()">{{"label.deposit"| translate}}</button>
+    <button (click)="withdraw()">{{"label.withdraw"| translate}}</button>
+  </div>
+
+  <div>
+    {{"label.current.balance" | translate}} <span>{{balance}}</span>
+  </div>
 </div>
