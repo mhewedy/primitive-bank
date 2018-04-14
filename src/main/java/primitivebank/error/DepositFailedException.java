@@ -1,8 +1,10 @@
 package primitivebank.error;
 
-public class DepositFailedException extends BankException {
+import primitivebank.error.support.ErrorId;
+
+public class DepositFailedException extends ServerException {
 
     public DepositFailedException() {
-        super(3, "deposit.failed");
+        super(ErrorId.DepositFailedException, "deposit.failed");
     }
 }

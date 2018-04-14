@@ -1,8 +1,10 @@
 package primitivebank.error;
 
-public class AccountNotFoundException extends BankException {
+import primitivebank.error.support.ErrorId;
+
+public class AccountNotFoundException extends ClientException {
 
     public AccountNotFoundException() {
-        super(1, "account.not.found");
+        super(ErrorId.AccountNotFoundException, "account.not.found");
     }
 }

@@ -8,4 +8,8 @@ public abstract class BankException extends RuntimeException {
         super(key);
         this.id = id;
     }
+
+    public int getId() {
+        return id;
+    }
 }

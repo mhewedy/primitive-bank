@@ -1,8 +1,10 @@
 package primitivebank.error;
 
-public class NoEnoughBalanceException extends BankException {
+import primitivebank.error.support.ErrorId;
+
+public class NoEnoughBalanceException extends ClientException {
 
     public NoEnoughBalanceException() {
-        super(2, "no.enough.balance");
+        super(ErrorId.NoEnoughBalanceException, "no.enough.balance");
     }
 }
