@@ -36,33 +36,19 @@ public class OperationLog extends BaseEntity {
     }
 
     public static OperationLog ofSucceededDeposit(Long accountId, Double amount) {
-        OperationLog operationLog = of(accountId, amount);
-        operationLog.setType(Type.DEPOSIT);
-        operationLog.setSuccess(true);
-        return operationLog;
+        return fill(of(accountId, amount), Type.DEPOSIT, true, null);
     }
 
     public static OperationLog ofFailedDeposit(Long accountId, Double amount, String message) {
-        OperationLog operationLog = of(accountId, amount);
-        operationLog.setType(Type.DEPOSIT);
-        operationLog.setSuccess(false);
-        operationLog.setMessage(message);
-        return operationLog;
+        return fill(of(accountId, amount), Type.DEPOSIT, false, message);
     }
 
     public static OperationLog ofSucceededWithdraw(Long accountId, Double amount) {
-        OperationLog operationLog = of(accountId, amount);
-        operationLog.setType(Type.WITHDRAW);
-        operationLog.setSuccess(true);
-        return operationLog;
+        return fill(of(accountId, amount), Type.WITHDRAW, true, null);
     }
 
     public static OperationLog ofFailedWithdraw(Long accountId, Double amount, String message) {
-        OperationLog operationLog = of(accountId, amount);
-        operationLog.setType(Type.WITHDRAW);
-        operationLog.setSuccess(false);
-        operationLog.setMessage(message);
-        return operationLog;
+        return fill(of(accountId, amount), Type.WITHDRAW, false, message);
     }
 
     // --- private
@@ -71,6 +57,13 @@ public class OperationLog extends BaseEntity {
         OperationLog operationLog = new OperationLog();
         operationLog.assignToAccount(accountId);
         operationLog.setAmount(amount);
+        return operationLog;
+    }
+
+    private static OperationLog fill(OperationLog operationLog, Type type, boolean success, String message) {
+        operationLog.setType(type);
+        operationLog.setSuccess(success);
+        operationLog.setMessage(message);
         return operationLog;
     }
 }
