@@ -6,6 +6,7 @@ import { FormsModule } from '@angular/forms';
 import {HttpClientModule, HttpClient} from '@angular/common/http';
 import {TranslateModule, TranslateLoader} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 import { AppComponent } from './app.component';
 import { MessageComponent } from './message/message.component';
@@ -30,7 +31,8 @@ export function HttpLoaderFactory(http: HttpClient) {
           useFactory: HttpLoaderFactory,
           deps: [HttpClient]
       }
-    })
+    }),
+    NgbModule.forRoot()
   ],
   providers: [HttpClientModule, AccountService, MessageService],
   bootstrap: [AppComponent]

@@ -3,17 +3,20 @@
     "account.not.found": "Account not found",
     "deposit.failed": "Deposit failed",
     "no.enough.balance": "No enough balance",
-    "input.invalid.amountDto.amount.NotNull": "Amount required"
+    "input.invalid.amountDto.amount.NotNull": "Amount required",
+    "input.invalid.amountDto.amount.Positive": "Amount should be greater than zero"
   },
   "client": {
-    "enter.valid.accountId": "Enter valid account Id"
+    "enter.valid.accountId": "Enter valid account ID"
   },
   "label": {
     "title": "Welcome to",
-    "accountId": "Account Id: ",
+    "accountId": "Account ID",
     "deposit": "Deposit",
     "withdraw": "Withdraw",
+    "amount": "Amount",
     "enter.amount": "Enter Amount",
-    "current.balance": "Current balance:"
+    "current.balance": "Current balance",
+    "accountId.tooltip": "The account with Id 1 is already created, see data-demo.sql"
   }
 }

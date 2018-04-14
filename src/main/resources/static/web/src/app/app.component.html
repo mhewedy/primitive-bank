@@ -6,22 +6,42 @@
 
 <app-message></app-message>
 
-<div>
-    <h3>
-      {{"label.accountId" | translate}}
-        <input type="number"  [(ngModel)]="accountId" (input)="accountIdChange()" name="accountId" />
-    </h3>
-  </div>
+<div class="card">
+  <div class="card-body">
 
-<div id="details" *ngIf="accountId && checkBalanceSucceed" >
+    <div class="form-group row">
+      <label for="accountId" class="col-sm-2 col-form-label">{{"label.accountId" | translate}}</label>
+      <div class="col-sm-6">
+        <input type="number" class="form-control" [(ngModel)]="accountId" (input)="accountIdChange()" 
+          name="accountId" id="accountId" placement="top" ngbTooltip="{{'label.accountId.tooltip' | translate}}">
+      </div>
+    </div>
 
-  <div>
-    <input type="number" placeholder="{{'label.enter.amount' | translate}}" [(ngModel)]="amount" name="amount" />
-    <button (click)="deposit()">{{"label.deposit"| translate}}</button>
-    <button (click)="withdraw()">{{"label.withdraw"| translate}}</button>
-  </div>
+    <div id="details" *ngIf="accountId && checkBalanceSucceed">
 
-  <div>
-    {{"label.current.balance" | translate}} <span>{{balance}}</span>
+      <div class="form-group row">
+        <label for="balance" class="col-sm-2 col-form-label">{{"label.amount" | translate}}</label>
+
+        <div class="input-group col-sm-6">
+          <div class="input-group-prepend">
+            <span class="input-group-text">$</span>
+          </div>
+          <input type="number" class="form-control" aria-label="Amount (to the nearest dollar)" placeholder="{{'label.enter.amount' | translate}}"
+            [(ngModel)]="amount" name="amount">
+          <div class="input-group-append">
+            <button class="btn btn-outline-primary" (click)="deposit()" type="button">{{"label.deposit"| translate}}</button>
+            <button class="btn btn-outline-danger" (click)="withdraw()" type="button">{{"label.withdraw"| translate}}</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label for="balance" class="col-sm-2 col-form-label">{{"label.current.balance" | translate}}</label>
+        <div class="col-sm-10">
+          <input type="text" readonly class="form-control-plaintext" id="balance" [value]="balance">
+        </div>
+      </div>
+
+    </div>
   </div>
 </div>
