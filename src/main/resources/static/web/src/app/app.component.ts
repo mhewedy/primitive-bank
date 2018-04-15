@@ -1,6 +1,7 @@
 import { MessageService } from './shared/message/message.service';
 import { AccountService } from './shared/account/account.service';
 import { Component, OnInit } from '@angular/core';
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-root',
@@ -15,7 +16,9 @@ export class AppComponent implements OnInit{
   balance: number;
   checkBalanceSucceed: boolean;
 
-  constructor(private accountService: AccountService, private messageService: MessageService){
+  constructor(private accountService: AccountService, private messageService: MessageService, translate: TranslateService){
+    translate.setDefaultLang('en');
+    translate.use('en');
   }
 
   ngOnInit() {

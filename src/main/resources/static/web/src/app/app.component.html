@@ -13,8 +13,10 @@
       <label for="accountId" class="col-sm-2 col-form-label">{{"label.accountId" | translate}}</label>
       <div class="col-sm-6">
         <input type="number" class="form-control" [(ngModel)]="accountId" (input)="accountIdChange()" name="accountId" id="accountId"
-          placement="top" ngbTooltip="{{'label.accountId.tooltip' | translate}}" #formAccountId="ngModel" required>
-
+          placement="top" #formAccountId="ngModel" required>
+          <small id="accountIdHelpBlock" class="form-text text-muted">
+              Account # 1 is already created in the backend, see data-demo.sql sql initializer file
+          </small>            
         <div class="form-control-feedback" *ngIf="formAccountId.errors && (formAccountId.dirty || formAccountId.touched)">
           <p *ngIf="formAccountId.errors.required">{{"client.enter.valid.accountId" | translate}}</p>
         </div>
@@ -33,10 +35,10 @@
               <span class="input-group-text">$</span>
             </div>
             <input type="number" class="form-control" aria-label="Amount (to the nearest dollar)" placeholder="{{'label.enter.amount' | translate}}"
-              [(ngModel)]="amount" name="amount" #formAmount="ngModel" required>
+              [(ngModel)]="amount" id="amount" name="amount" #formAmount="ngModel" required>
             <div class="input-group-append">
-              <button class="btn btn-outline-primary" (click)="deposit()" type="button" [disabled]="formAmount.errors">{{"label.deposit"| translate}}</button>
-              <button class="btn btn-outline-danger" (click)="withdraw()" type="button" [disabled]="formAmount.errors">{{"label.withdraw"| translate}}</button>
+              <button class="btn btn-outline-primary" (click)="deposit()" type="button" id="deposit" [disabled]="formAmount.errors">{{"label.deposit"| translate}}</button>
+              <button class="btn btn-outline-danger" (click)="withdraw()" type="button" id="withdraw" [disabled]="formAmount.errors">{{"label.withdraw"| translate}}</button>
             </div>
           </div>
           <div class="form-control-feedback" *ngIf="formAmount.errors && (formAmount.dirty || formAmount.touched)">

@@ -5,7 +5,7 @@
     "no.enough.balance": "No enough balance",
     "input.invalid.amountDto.amount.NotNull": "Amount required",
     "input.invalid.amountDto.amount.Positive": "Amount should be greater than zero",
-    "undefined": "Server might be down"
+    "undefined": "Backend Server might be down"
   },
   "client": {
     "enter.valid.accountId": "Enter valid account ID",
