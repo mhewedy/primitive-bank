@@ -28,6 +28,12 @@ to run the app in the IDE)
 use the script `start-demo.sh` to start the application (Backend and Frontend) in demo mode where 2 accounts with ID
 1 and 2 are already created and ready to operate against.
 
+* First Account with ID 1, with initial balance 0
+* Second Account with ID 2, with initial balance 200.5 
+
+> Note: I did not assume any currency, hence there's not restriction/conversion on the decimal points.
+
+
 The app will be running over: [http://localhost:4200/](http://localhost:4200/).
 
 #### Deployment
