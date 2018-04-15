@@ -9,7 +9,8 @@
   },
   "client": {
     "enter.valid.accountId": "Enter valid account ID",
-    "enter.valid.amount": "Enter valid amount"
+    "enter.valid.amount": "Enter valid amount",
+    "operation.success": "Operation done successfully"
   },
   "label": {
     "title": "Welcome to",

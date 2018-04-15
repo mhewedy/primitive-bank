@@ -9,7 +9,7 @@ import {TranslateService} from '@ngx-translate/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit{
-  
+
   title = 'Primitive Bank';
   accountId: number = 1;
   amount: number;
@@ -29,9 +29,10 @@ export class AppComponent implements OnInit{
     this.accountService.deposit(this.accountId, this.amount)
       .subscribe(resp =>{
           this.checkBalance()
+          this.messageService.setAsSuccess('client.operation.success')
         }, e => {
           console.log(e.error.key)
-          this.messageService.set('server.' + e.error.key)
+          this.messageService.setAsError('server.' + e.error.key)
         })
   }
 
@@ -39,9 +40,10 @@ export class AppComponent implements OnInit{
     this.accountService.withdraw(this.accountId, this.amount)
       .subscribe(resp =>{
           this.checkBalance()
+          this.messageService.setAsSuccess('client.operation.success')
         }, e => {
           console.log(e.error.key)
-          this.messageService.set('server.' + e.error.key)
+          this.messageService.setAsError('server.' + e.error.key)
         })
   }
 
@@ -63,7 +65,7 @@ export class AppComponent implements OnInit{
           console.log(e.error.key)
           this.balance = null
           this.checkBalanceSucceed = false
-          this.messageService.set('server.' + e.error.key)
+          this.messageService.setAsError('server.' + e.error.key)
         })
   }
 }
