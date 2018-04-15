@@ -3,7 +3,7 @@ import {AccountService} from './shared/account/account.service';
 import {Component, OnInit} from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
 import {FormGroup, FormBuilder, Validators} from '@angular/forms';
-import {CustomValidators} from "./shared/CustomValidators";
+import {CustomValidators} from "./shared/validators/CustomValidators";
 import "rxjs/add/operator/debounceTime";
 
 @Component({

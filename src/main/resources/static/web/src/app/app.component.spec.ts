@@ -8,12 +8,14 @@ import {MessageService} from './shared/message/message.service';
 import {AccountService} from './shared/account/account.service';
 import {Observable} from "rxjs/Observable";
 import 'rxjs/add/observable/of';
+import 'rxjs/add/observable/throw';
 
 describe('AppComponent', () => {
 
   let comp: AppComponent;
   let fixture: ComponentFixture<AppComponent>;
   let accountService: AccountService
+  let messageService: MessageService
 
   beforeEach(async(() => {
 
@@ -44,6 +46,7 @@ describe('AppComponent', () => {
     comp = fixture.componentInstance;
     comp.ngOnInit();
     accountService = fixture.debugElement.injector.get(AccountService);
+    messageService = fixture.debugElement.injector.get(MessageService);
   });
 
   it('should create the app', async(() => {
@@ -161,6 +164,40 @@ describe('AppComponent', () => {
     comp.checkBalance()
     expect(accountService.checkBalance).toHaveBeenCalledTimes(1);
     expect(comp.balance).toEqual(300.30)
+  }));
+
+  it('component checkBalance methods calls the service checkBalance method => handle error case', async(() => {
+
+    spyOn(accountService, "checkBalance").and.returnValue(Observable.throw(({"error": {"key": "error.message"}})))
+    spyOn(messageService, "setAsError").and.callThrough()
+    comp.checkBalance()
+
+    expect(accountService.checkBalance).toHaveBeenCalledTimes(1);
+    expect(comp.balance).toEqual(null)
+    expect(messageService.setAsError).toHaveBeenCalledTimes(1)
+    expect(messageService.setAsError).toHaveBeenCalledWith("server.error.message")
+  }));
+
+  it('component deposit methods calls the service deposit method => handle error case', async(() => {
+
+    spyOn(accountService, "deposit").and.returnValue(Observable.throw(({"error": {"key": "error.message"}})))
+    spyOn(messageService, "setAsError").and.callThrough()
+    comp.deposit()
+
+    expect(accountService.deposit).toHaveBeenCalledTimes(1);
+    expect(messageService.setAsError).toHaveBeenCalledTimes(1)
+    expect(messageService.setAsError).toHaveBeenCalledWith("server.error.message")
+  }));
+
+  it('component withdraw methods calls the service withdraw method => handle error case', async(() => {
+
+    spyOn(accountService, "withdraw").and.returnValue(Observable.throw(({"error": {"key": "error.message"}})))
+    spyOn(messageService, "setAsError").and.callThrough()
+    comp.withdraw()
+
+    expect(accountService.withdraw).toHaveBeenCalledTimes(1);
+    expect(messageService.setAsError).toHaveBeenCalledTimes(1)
+    expect(messageService.setAsError).toHaveBeenCalledWith("server.error.message")
   }));
 
 });
