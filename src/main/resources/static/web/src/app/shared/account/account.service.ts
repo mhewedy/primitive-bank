@@ -9,14 +9,14 @@ export class AccountService {
   constructor(private http: HttpClient) { }
 
   deposit(accountId: number, amount: number) {
-    return this.http.put(`//localhost:8080/api/v1/account/${accountId}/balance/deposit`, new Amount(amount));
+    return this.http.put(`/api/v1/account/${accountId}/balance/deposit`, new Amount(amount));
   }
 
   withdraw(accountId: number, amount: number) {
-    return this.http.put(`//localhost:8080/api/v1/account/${accountId}/balance/withdraw`, new Amount(amount));
+    return this.http.put(`/api/v1/account/${accountId}/balance/withdraw`, new Amount(amount));
   }
 
   checkBalance(accountId: number): Observable<Amount> {
-    return this.http.get<Amount>(`//localhost:8080/api/v1/account/${accountId}/balance`);
+    return this.http.get<Amount>(`/api/v1/account/${accountId}/balance`);
   }
 }
