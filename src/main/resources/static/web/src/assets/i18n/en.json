@@ -10,7 +10,8 @@
   "client": {
     "enter.valid.accountId": "Enter valid account ID",
     "enter.valid.amount": "Enter valid amount",
-    "operation.success": "Operation done successfully"
+    "operation.success": "Operation done successfully",
+    "enter.valid.amount.gt.zero": "amount should be greater than zero"
   },
   "label": {
     "title": "Welcome to",
@@ -18,8 +19,9 @@
     "deposit": "Deposit",
     "withdraw": "Withdraw",
     "amount": "Amount",
-    "enter.amount": "Enter Amount",
-    "current.balance": "Current balance",
-    "accountId.tooltip": "The account with Id 1 is already created, see data-demo.sql"
+    "enter.amount": "Enter Amount for account #",
+    "current.balance": "Current balance for account #",
+    "accountId.tooltip": "The account with Id 1 is already created, see data-demo.sql",
+    "accountId.hint": "Accounts # 1 and 2 are already created in the backend, see data-demo.sql file"
   }
 }

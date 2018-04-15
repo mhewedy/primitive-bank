@@ -9,51 +9,67 @@
 <div class="card">
   <div class="card-body">
 
-    <div class="form-group row">
-      <label for="accountId" class="col-sm-2 col-form-label">{{"label.accountId" | translate}}</label>
-      <div class="col-sm-6">
-        <input type="number" class="form-control" [(ngModel)]="accountId" (input)="accountIdChange()" name="accountId" id="accountId"
-          placement="top" #formAccountId="ngModel" required>
-          <small id="accountIdHelpBlock" class="form-text text-muted">
-              Account # 1 is already created in the backend, see data-demo.sql sql initializer file
-          </small>            
-        <div class="form-control-feedback" *ngIf="formAccountId.errors && (formAccountId.dirty || formAccountId.touched)">
-          <p *ngIf="formAccountId.errors.required">{{"client.enter.valid.accountId" | translate}}</p>
-        </div>
-
-      </div>
-    </div>
-
-    <div id="details" *ngIf="accountId && checkBalanceSucceed">
+    <form [formGroup]="myForm">
 
       <div class="form-group row">
-        <label for="balance" class="col-sm-2 col-form-label">{{"label.amount" | translate}}</label>
+        <label for="accountId" class="col-sm-2 col-form-label">{{"label.accountId" | translate}}</label>
 
-        <div class=" col-sm-6">
-          <div class="input-group">
-            <div class="input-group-prepend">
-              <span class="input-group-text">$</span>
-            </div>
-            <input type="number" class="form-control" aria-label="Amount (to the nearest dollar)" placeholder="{{'label.enter.amount' | translate}}"
-              [(ngModel)]="amount" id="amount" name="amount" #formAmount="ngModel" required>
-            <div class="input-group-append">
-              <button class="btn btn-outline-primary" (click)="deposit()" type="button" id="deposit" [disabled]="formAmount.errors">{{"label.deposit"| translate}}</button>
-              <button class="btn btn-outline-danger" (click)="withdraw()" type="button" id="withdraw" [disabled]="formAmount.errors">{{"label.withdraw"| translate}}</button>
-            </div>
-          </div>
-          <div class="form-control-feedback" *ngIf="formAmount.errors && (formAmount.dirty || formAmount.touched)">
-            <p *ngIf="formAmount.errors.required">{{"client.enter.valid.amount" | translate}}</p>
+        <div class="col-sm-6">
+          <input type="number" id="accountId" name="accountId" class="form-control" formControlName="accountId">
+          <small id="accountIdHelpBlock" class="form-text text-muted">{{"label.accountId.hint" | translate}}</small>
+
+          <div class="form-control-feedback"
+               *ngIf="accountId.errors && (accountId.dirty || accountId.touched)">
+            <p *ngIf="accountId.errors['required']">{{"client.enter.valid.accountId" | translate}}</p>
           </div>
         </div>
+
       </div>
 
-      <div class="form-group row">
-        <label for="balance" class="col-sm-2 col-form-label">{{"label.current.balance" | translate}}</label>
-        <div class="col-sm-10">
-          <input type="text" readonly class="form-control-plaintext" id="balance" [value]="balance">
+      <ng-container *ngIf="myForm.value.accountId && checkBalanceSucceed">
+
+        <div class="form-group row">
+          <label for="balance" class="col-sm-2 col-form-label">{{"label.amount" | translate}}</label>
+
+          <div class=" col-sm-6">
+            <div class="input-group">
+
+              <div class="input-group-prepend">
+                <span class="input-group-text">$</span>
+              </div>
+              <input type="number" id="amount" class="form-control"
+                     placeholder="{{'label.enter.amount' | translate}} {{accountId.value}}"
+                     formControlName="amount">
+
+              <div class="input-group-append">
+                <button class="btn btn-outline-primary" (click)="deposit()" type="button" id="deposit"
+                        [disabled]="amount.errors">{{"label.deposit"| translate}}
+                </button>
+                <button class="btn btn-outline-danger" (click)="withdraw()" type="button" id="withdraw"
+                        [disabled]="amount.errors">{{"label.withdraw"| translate}}
+                </button>
+              </div>
+            </div>
+
+            <div class="form-control-feedback" *ngIf="amount.errors && (amount.dirty || amount.touched)">
+              <p *ngIf="amount.errors['required']">{{"client.enter.valid.amount" | translate}} </p>
+              <p *ngIf="amount.errors['number']">{{"client.enter.valid.amount.gt.zero" | translate}} </p>
+            </div>
+
+          </div>
         </div>
-      </div>
 
-    </div>
+        <div class="form-group row">
+          <label for="balance" class="col-sm-2 col-form-label">{{"label.current.balance" | translate}}
+            {{accountId.value}}</label>
+          <div class="col-sm-10">
+            <input type="text" readonly class="form-control-plaintext" id="balance" [value]="balance">
+          </div>
+        </div>
+
+      </ng-container>
+
+    </form>
+
   </div>
 </div>
