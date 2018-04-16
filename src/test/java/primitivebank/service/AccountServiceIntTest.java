@@ -242,6 +242,34 @@ public class AccountServiceIntTest {
     }
 
     @Test
+    //@Transactional    // Transactional associate the current thread to the Tnx,
+    // and then no other threads can see the data until the tnx completes for rollbacks
+    public void testConcurrentDepositsInTwoDifferntAccounts() throws Exception {
+
+        Account fromDb1 = accountRepository.save(new Account());
+        Account fromDb2 = accountRepository.save(new Account());
+
+        ExecutorService pool = Executors.newCachedThreadPool();
+
+        CountDownLatch latch = new CountDownLatch(5);
+
+        pool.submit(() -> deposit(fromDb1.getId(), 100.0, latch));
+        pool.submit(() -> deposit(fromDb1.getId(), 100.0, latch));
+        pool.submit(() -> deposit(fromDb1.getId(), 100.0, latch));
+        pool.submit(() -> deposit(fromDb2.getId(), 100.0, latch));
+        pool.submit(() -> deposit(fromDb2.getId(), 100.0, latch));
+
+        latch.await(1, TimeUnit.SECONDS);
+
+        Double dbBalance1 = accountService.checkBalance(fromDb1.getId());
+        assertThat(dbBalance1).isEqualTo(300.0);
+        Double dbBalance2 = accountService.checkBalance(fromDb2.getId());
+        assertThat(dbBalance2).isEqualTo(200.0);
+
+        pool.shutdown();
+    }
+
+    @Test
     //@Transactional    // Transactional associates the current thread to the Tnx,
     // and then no other threads can see the data until the tnx completes for rollbacks
     public void testConcurrentWithdraws() throws Exception {
@@ -265,6 +293,42 @@ public class AccountServiceIntTest {
 
         Double dbBalance = accountService.checkBalance(fromDb.getId());
         assertThat(dbBalance).isEqualTo(0.0);
+
+        assertThat(successCount.get()).isEqualTo(1);
+        assertThat(failureCount.get()).isEqualTo(2);
+
+        pool.shutdown();
+    }
+
+    @Test
+    //@Transactional    // Transactional associates the current thread to the Tnx,
+    // and then no other threads can see the data until the tnx completes for rollbacks
+    public void testConcurrentWithdrawsFromTwoDifferntAccounts() throws Exception {
+
+        Account fromDb1 = accountRepository.save(new Account());
+        accountService.deposit(fromDb1.getId(), 100.0);
+
+        Account fromDb2 = accountRepository.save(new Account());
+        accountService.deposit(fromDb2.getId(), 1000.0);
+
+        ExecutorService pool = Executors.newCachedThreadPool();
+
+        AtomicInteger successCount = new AtomicInteger();
+        AtomicInteger failureCount = new AtomicInteger();
+
+        CountDownLatch latch = new CountDownLatch(3);
+
+        pool.submit(() -> withdraw(fromDb1.getId(), 100.0, latch, successCount, failureCount));
+        pool.submit(() -> withdraw(fromDb1.getId(), 100.0, latch, successCount, failureCount));
+        pool.submit(() -> withdraw(fromDb2.getId(), 1100.0, latch, successCount, failureCount));
+
+        latch.await(1, TimeUnit.SECONDS);
+
+        Double dbBalance1 = accountService.checkBalance(fromDb1.getId());
+        assertThat(dbBalance1).isEqualTo(0.0);
+
+        Double dbBalance2 = accountService.checkBalance(fromDb2.getId());
+        assertThat(dbBalance2).isEqualTo(1000.0);
 
         assertThat(successCount.get()).isEqualTo(1);
         assertThat(failureCount.get()).isEqualTo(2);
