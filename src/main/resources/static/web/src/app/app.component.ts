@@ -52,7 +52,7 @@ export class AppComponent implements OnInit {
       .subscribe(resp => {
         this.postSuccessOperation()
       }, e => {
-        console.log(e.error.key)
+        console.log(e.error.key);
         this.messageService.setAsError('server.' + e.error.key)
       })
   }
@@ -65,7 +65,7 @@ export class AppComponent implements OnInit {
       .subscribe(resp => {
         this.postSuccessOperation()
       }, e => {
-        console.log(e.error.key)
+        console.log(e.error.key);
         this.messageService.setAsError('server.' + e.error.key)
       })
   }
@@ -75,13 +75,13 @@ export class AppComponent implements OnInit {
 
     this.accountService.checkBalance(this.myForm.value.accountId)
       .subscribe(resp => {
-        console.log(resp)
-        this.balance = resp.amount
+        console.log(resp);
+        this.balance = resp.amount;
         this.checkBalanceSucceed = true
       }, e => {
-        console.log(e.error.key)
-        this.balance = null
-        this.checkBalanceSucceed = false
+        console.log(e.error.key);
+        this.balance = null;
+        this.checkBalanceSucceed = false;
         this.messageService.setAsError('server.' + e.error.key)
       })
   }
@@ -99,8 +99,8 @@ export class AppComponent implements OnInit {
   // ---
 
   private postSuccessOperation() {
-    this.checkBalance()
-    this.messageService.setAsSuccess('client.operation.success')
+    this.checkBalance();
+    this.messageService.setAsSuccess('client.operation.success');
     this.myForm.get("amount").setValue("0.0")
   }
 

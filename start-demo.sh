@@ -8,7 +8,7 @@ then
     mvn clean package -DskipTests
 fi
 
-java $JAVA_OPTS -jar target/primitive-bank-*.jar --spring.profiles.active=demo &
+java ${JAVA_OPTS} -jar target/primitive-bank-*.jar --spring.profiles.active=demo &
 
 cd src/main/resources/static/web; npm start; cd - &
 
