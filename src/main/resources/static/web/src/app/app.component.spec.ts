@@ -14,8 +14,8 @@ describe('AppComponent', () => {
 
   let comp: AppComponent;
   let fixture: ComponentFixture<AppComponent>;
-  let accountService: AccountService
-  let messageService: MessageService
+  let accountService: AccountService;
+  let messageService: MessageService;
 
   beforeEach(async(() => {
 
@@ -110,93 +110,93 @@ describe('AppComponent', () => {
   }));
 
   it('set value to the accountId calls the method checkBalance', fakeAsync(() => {
-    spyOn(comp, "checkBalance")
+    spyOn(comp, "checkBalance");
     comp.myForm.controls.accountId.setValue(3);
-    tick(51)
+    tick(51);
     expect(comp.checkBalance).toHaveBeenCalledTimes(1);
   }));
 
   it('the call to checkBalance calls the service checkBalance', async(() => {
-    spyOn(accountService, "checkBalance").and.returnValue(Observable.of(new Amount(100.0)))
-    comp.checkBalance()
+    spyOn(accountService, "checkBalance").and.returnValue(Observable.of(new Amount(100.0)));
+    comp.checkBalance();
     expect(accountService.checkBalance).toHaveBeenCalledTimes(1);
   }));
 
   it('click the deposit button call the component deposit methods', async(() => {
     fixture.detectChanges();
 
-    spyOn(comp, "deposit").and.returnValue(null)
+    spyOn(comp, "deposit").and.returnValue(null);
 
     let button = fixture.debugElement.nativeElement.querySelector('#deposit');
-    button.disabled = false
-    button.click()
+    button.disabled = false;
+    button.click();
     expect(comp.deposit).toHaveBeenCalledTimes(1);
   }));
 
   it('component deposit methods calls the service deposit method', async(() => {
 
-    spyOn(accountService, "deposit").and.returnValue(Observable.of(""))
-    comp.deposit()
+    spyOn(accountService, "deposit").and.returnValue(Observable.of(""));
+    comp.deposit();
     expect(accountService.deposit).toHaveBeenCalledTimes(1);
   }));
 
   it('click the withdraw button call the component withdraw methods', async(() => {
     fixture.detectChanges();
 
-    spyOn(comp, "withdraw").and.returnValue(null)
+    spyOn(comp, "withdraw").and.returnValue(null);
 
     let button = fixture.debugElement.nativeElement.querySelector('#withdraw');
-    button.disabled = false
-    button.click()
+    button.disabled = false;
+    button.click();
     expect(comp.withdraw).toHaveBeenCalledTimes(1);
   }));
 
   it('component withdraw methods calls the service withdraw method', async(() => {
 
-    spyOn(accountService, "withdraw").and.returnValue(Observable.of(""))
-    comp.withdraw()
+    spyOn(accountService, "withdraw").and.returnValue(Observable.of(""));
+    comp.withdraw();
     expect(accountService.withdraw).toHaveBeenCalledTimes(1);
   }));
 
   it('component checkBalance methods calls the service checkBalance method', async(() => {
 
-    spyOn(accountService, "checkBalance").and.returnValue(Observable.of(new Amount(300.30)))
-    comp.checkBalance()
+    spyOn(accountService, "checkBalance").and.returnValue(Observable.of(new Amount(300.30)));
+    comp.checkBalance();
     expect(accountService.checkBalance).toHaveBeenCalledTimes(1);
     expect(comp.balance).toEqual(300.30)
   }));
 
   it('component checkBalance methods calls the service checkBalance method => handle error case', async(() => {
 
-    spyOn(accountService, "checkBalance").and.returnValue(Observable.throw(({"error": {"key": "error.message"}})))
-    spyOn(messageService, "setAsError").and.callThrough()
-    comp.checkBalance()
+    spyOn(accountService, "checkBalance").and.returnValue(Observable.throw(({"error": {"key": "error.message"}})));
+    spyOn(messageService, "setAsError").and.callThrough();
+    comp.checkBalance();
 
     expect(accountService.checkBalance).toHaveBeenCalledTimes(1);
-    expect(comp.balance).toEqual(null)
-    expect(messageService.setAsError).toHaveBeenCalledTimes(1)
+    expect(comp.balance).toEqual(null);
+    expect(messageService.setAsError).toHaveBeenCalledTimes(1);
     expect(messageService.setAsError).toHaveBeenCalledWith("server.error.message")
   }));
 
   it('component deposit methods calls the service deposit method => handle error case', async(() => {
 
-    spyOn(accountService, "deposit").and.returnValue(Observable.throw(({"error": {"key": "error.message"}})))
-    spyOn(messageService, "setAsError").and.callThrough()
-    comp.deposit()
+    spyOn(accountService, "deposit").and.returnValue(Observable.throw(({"error": {"key": "error.message"}})));
+    spyOn(messageService, "setAsError").and.callThrough();
+    comp.deposit();
 
     expect(accountService.deposit).toHaveBeenCalledTimes(1);
-    expect(messageService.setAsError).toHaveBeenCalledTimes(1)
+    expect(messageService.setAsError).toHaveBeenCalledTimes(1);
     expect(messageService.setAsError).toHaveBeenCalledWith("server.error.message")
   }));
 
   it('component withdraw methods calls the service withdraw method => handle error case', async(() => {
 
-    spyOn(accountService, "withdraw").and.returnValue(Observable.throw(({"error": {"key": "error.message"}})))
-    spyOn(messageService, "setAsError").and.callThrough()
-    comp.withdraw()
+    spyOn(accountService, "withdraw").and.returnValue(Observable.throw(({"error": {"key": "error.message"}})));
+    spyOn(messageService, "setAsError").and.callThrough();
+    comp.withdraw();
 
     expect(accountService.withdraw).toHaveBeenCalledTimes(1);
-    expect(messageService.setAsError).toHaveBeenCalledTimes(1)
+    expect(messageService.setAsError).toHaveBeenCalledTimes(1);
     expect(messageService.setAsError).toHaveBeenCalledWith("server.error.message")
   }));
 

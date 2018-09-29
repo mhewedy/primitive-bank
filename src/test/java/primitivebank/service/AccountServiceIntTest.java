@@ -244,7 +244,7 @@ public class AccountServiceIntTest {
     @Test
     //@Transactional    // Transactional associate the current thread to the Tnx,
     // and then no other threads can see the data until the tnx completes for rollbacks
-    public void testConcurrentDepositsInTwoDifferntAccounts() throws Exception {
+    public void testConcurrentDepositsInTwoDifferentAccounts() throws Exception {
 
         Account fromDb1 = accountRepository.save(new Account());
         Account fromDb2 = accountRepository.save(new Account());
@@ -303,7 +303,7 @@ public class AccountServiceIntTest {
     @Test
     //@Transactional    // Transactional associates the current thread to the Tnx,
     // and then no other threads can see the data until the tnx completes for rollbacks
-    public void testConcurrentWithdrawsFromTwoDifferntAccounts() throws Exception {
+    public void testConcurrentWithdrawsFromTwoDifferentAccounts() throws Exception {
 
         Account fromDb1 = accountRepository.save(new Account());
         accountService.deposit(fromDb1.getId(), 100.0);

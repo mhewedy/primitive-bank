@@ -17,7 +17,7 @@ export class CustomValidators {
     };
   }
 
-  static validateNumber(val: number, min: number, max: number) {
+  private static validateNumber(val: number, min: number, max: number) {
 
     if (isNaN(val) || !(/\d*\.?\d*/.test(val.toString()))) {
       return {"number": true};
