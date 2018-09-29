@@ -10,6 +10,8 @@ RUN mkdir -p /app
 WORKDIR /app
 COPY .  /app
 
+CMD ls /app
+
 # run package managers
 RUN mvn clean package -DskipTests
 RUN cd src/main/resources/static/web; npm install; cd -
