@@ -1,0 +1,6 @@
+
+#ignroe node modules
+src/main/resources/static/web/node_modules
+
+#ignore mvn target
+target
