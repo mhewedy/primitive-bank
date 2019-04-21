@@ -45,3 +45,7 @@ There are maven plugins out there are used to call the `ng dist` as part of the 
 is not indented for production deployment, I didn't put any effort for archiving the angular artifacts with Java 
 (also because some deployment methods prefere to separate the frontend from the backed with allows greater scalability).
 
+##### Docker
+`docker pull mhewedy/primitive-bank`
+
+
